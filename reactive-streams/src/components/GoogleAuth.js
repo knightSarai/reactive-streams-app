@@ -37,7 +37,8 @@ class GoogleAuth extends Component{
         window.gapi.load('client:auth2', ()=> {
             window.gapi.client.init({
                 clientId: "60471022609-59kkholm574cik7bigaicu6uugpam3d2.apps.googleusercontent.com",
-                scope: 'email'
+                scope: 'email',
+                prompt: "select_account"
             })
             .then(() => {
                 this.auth = window.gapi.auth2.getAuthInstance();
@@ -103,3 +104,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect (mapStateToProps, {signIn, signOut})(GoogleAuth);
+
+//*https://accounts.google.com/o/oauth2/auth?redirect_uri=storagerelay%3A%2F%2Fhttp%2Flocalhost%3A3000%3Fid%3Dauth532126&response_type=permission id_token&scope=email profile openid&openid.realm=&client_id=60471022609-59kkholm574cik7bigaicu6uugpam3d2.apps.googleusercontent.com&ss_domain=http%3A%2F%2Flocalhost%3A3000&fetch_basic_profile=true&gsiwebsdk=2

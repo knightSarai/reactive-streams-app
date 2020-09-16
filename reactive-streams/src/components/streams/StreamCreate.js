@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {createStream} from '../../actions';
 import {Field, formValues, reduxForm} from 'redux-form';
 import {TextField, Button} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -31,8 +33,8 @@ class StreamCreate extends Component {
         return <TextField error={isError} helperText={errMsg} {...input} label={input.name} className={className}/>
     }
 
-    onSubmit(formValues) {
-        console.log(formValues);
+    onSubmit = (formValues) => {
+        this.props.createStream(formValues)
     }
 
     render() {
@@ -60,7 +62,11 @@ const validate = (formValues) => {
     return errors;
 }
 
-export default withStyles(styles)(reduxForm({
+const formWrapped = reduxForm({
     form: 'streamCreate',
     validate
-})(StreamCreate));
+    }
+)(StreamCreate);
+
+const componentStyled = withStyles(styles)(formWrapped);
+export default connect(null, {createStream})(componentStyled) ;
