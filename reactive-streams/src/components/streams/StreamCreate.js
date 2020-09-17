@@ -69,4 +69,5 @@ const formWrapped = reduxForm({
 )(StreamCreate);
 
 const componentStyled = withStyles(styles)(formWrapped);
+
 export default connect(null, {createStream})(componentStyled) ;
