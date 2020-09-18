@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose} from 'redux';
 import thunk from 'redux-thunk';
 import {
-    BrowserRouter as Router,
+    Router,
 } from "react-router-dom";
 
 import App from './components/App';
 import reducers from './reducers';
-
+import history from './helpers/history'
 import './index.css';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -23,7 +23,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store= {store}>
-        <Router>
+        <Router history={history}>
             <App/>
         </Router>
     </Provider>,
