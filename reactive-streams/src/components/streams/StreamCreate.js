@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {createStream} from '../../actions';
-import {Field, formValues, reduxForm} from 'redux-form';
-import {TextField, Button} from '@material-ui/core';
+import {Field, reduxForm} from 'redux-form';
+import {TextField, Button, Typography} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import GoogleIcon from '../../icons/Googlecon';
+import {validate} from '../../helpers/validate';
 
 const styles = {
     root: {
@@ -27,6 +29,7 @@ class StreamCreate extends Component {
             return [false, null]
         }
     }
+
     renderInput = ({input, className, meta}) => {
         /*input has props, such as onChange */
         const [isError, errMsg] = this.renderErr(meta);
@@ -37,29 +40,42 @@ class StreamCreate extends Component {
         this.props.createStream(formValues)
     }
 
-    render() {
-        const {classes, handleSubmit} = this.props
+    renderForm = (classes, handleSubmit) => {
         return (
             <form  onSubmit={handleSubmit(this.onSubmit)}  className={classes.root}>
+                <Typography variant="h5">Create new stream</Typography>
                 <Field name="title" component={this.renderInput} className={classes.textField}/>
                 <br/>
                 <Field name="description" component={this.renderInput}/>
                 <br/>
-                <Button type="submit" variant="contained" color="primary"className={classes.button} >Submit</Button>
+                <Button type="submit" variant="contained" color="primary" className={classes.button} >Submit</Button>
             </form>
         )
     }
+
+    renderSignIn = (classes) => {
+        return (
+            <div className={classes.root}>
+                <h1>Please login to add new stream</h1>
+                <Button color="primary" variant="contained" onClick={this.onSignOutClick}><GoogleIcon />Sign in</Button>
+            </div> 
+        )
+    }
+
+    render() {
+        const {classes, handleSubmit, isSignedIn} = this.props;
+        return (
+            isSignedIn ? 
+            this.renderForm(classes, handleSubmit) : 
+            this.renderSignIn(classes)
+        )
+        
+    }
 }
 
-const validate = (formValues) => {
-    const errors = {};
-    if (!formValues.title) {
-        errors.title = "You must enter the title";
-    }
-    if (!formValues.description) {
-        errors.description = "You must enter a description"
-    }
-    return errors;
+
+const mapStateToProps = state => {
+    return {isSignedIn: state.auth.isSignedIn}
 }
 
 const formWrapped = reduxForm({
@@ -70,4 +86,4 @@ const formWrapped = reduxForm({
 
 const componentStyled = withStyles(styles)(formWrapped);
 
-export default connect(null, {createStream})(componentStyled) ;
+export default connect(mapStateToProps, {createStream})(componentStyled) ;

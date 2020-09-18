@@ -31,19 +31,19 @@ export default function App() {
     return (
         <MainProvider>
             <Paper className={classes.papper}>
-            <div className={classes.root}>
-                <Nav/>
-                <Container>
-                    <Switch>
-                        <Route path="/" exact component={StreamList}/>
-                        <Route path="/streams/new" exact component={StreamCreate}/>
-                        <Route path="/streams/edit" exact component={StreamEdit}/>
-                        <Route path="/streams/delete" exact component={StreamDelete}/>
-                        <Route path="/streams/show" exact component={StreamShow}/>
-                    </Switch>
-                </Container> 
-            </div>
-        </Paper>
+                <div className={classes.root}>
+                    <Nav/>
+                    <Container>
+                        <Switch>
+                            <Route path="/" exact component={StreamList}/>
+                            <Route path="/streams/new" exact component={StreamCreate}/>
+                            <Route path="/streams/edit" exact component={StreamEdit}/>
+                            <Route path="/streams/delete" exact component={StreamDelete}/>
+                            <Route path="/streams/show" exact component={StreamShow}/>
+                        </Switch>
+                    </Container> 
+                </div>
+            </Paper>
         </MainProvider>
         
     )
