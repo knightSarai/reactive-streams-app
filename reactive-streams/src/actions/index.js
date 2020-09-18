@@ -15,14 +15,17 @@ export const signIn = ({userId, userName}) => {
         type: SIGN_IN,
         payload:  {
             userId,
-            userName
+            userName,
         }
     }
 }
 
-export const signOut = () => {
+export const signOut = (auth) => {
     return {
-        type: SIGN_OUT
+        type: SIGN_OUT,
+        payload: {
+            auth
+        }
     }
 }
 

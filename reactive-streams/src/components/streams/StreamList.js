@@ -68,8 +68,8 @@ const StreamList = ({currentUserId, fetchStreams, streams}) =>{
 
     const renderList = () => {
         return streams.map(stream => (
-            <Grid item xs={12} sm={6} lg={4}>
-                <ListItem key={stream.id} >
+            <Grid item xs={12} sm={6} lg={4} key={stream.id}>
+                <ListItem >
                     <ListItemAvatar>
                         <OndemandVideoIcon  fontSize="large"/>
                     </ListItemAvatar>

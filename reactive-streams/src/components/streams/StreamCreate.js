@@ -57,7 +57,7 @@ class StreamCreate extends Component {
         return (
             <div className={classes.root}>
                 <h1>Please login to add new stream</h1>
-                <Button color="primary" variant="contained" onClick={this.onSignOutClick}><GoogleIcon />Sign in</Button>
+                <Button color="primary" variant="contained" onClick={() => this.props.auth.signIn()}><GoogleIcon />Sign in</Button>
             </div> 
         )
     }
@@ -75,7 +75,7 @@ class StreamCreate extends Component {
 
 
 const mapStateToProps = state => {
-    return {isSignedIn: state.auth.isSignedIn}
+    return {isSignedIn: state.auth.isSignedIn, auth: state.auth.auth}
 }
 
 const formWrapped = reduxForm({

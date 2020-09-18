@@ -24,8 +24,7 @@ class GoogleAuth extends Component{
                 this.auth = window.gapi.auth2.getAuthInstance();
                 this.onAuthChange(this.auth.isSignedIn.get());
                 this.auth.isSignedIn.listen(this.onAuthChange);
-            })
-
+            });
         });
     }
     
@@ -42,10 +41,12 @@ class GoogleAuth extends Component{
         if (isSignedIn) {
             this.props.signIn({
                 userId: this.auth.currentUser.get().getBasicProfile().getId(),
-                userName:  this.auth.currentUser.get().getBasicProfile().getName()
+                userName:  this.auth.currentUser.get().getBasicProfile().getName(),
             });
         } else {
-            this.props.signOut();
+            this.props.signOut(
+                this.auth
+            );
         }
     }
 
@@ -78,6 +79,7 @@ class GoogleAuth extends Component{
 
 const mapStateToProps = (state) => {
     return {
+        auth: state.auth.auth,
         isSignedIn: state.auth.isSignedIn,
         userName: state.auth.userName
     }
