@@ -1,5 +1,6 @@
 import streams from '../api/streams';
 import {
+    INIT_OAUTH,
     SIGN_IN, 
     SIGN_OUT, 
     FETCH_STREAMS,
@@ -9,6 +10,15 @@ import {
     EDIT_STREAM
 } from './types.actions';
 // todo: add user name
+
+export const initOath = ({oauth}) => {
+    return {
+        type: INIT_OAUTH,
+        payload:  {
+            oauth
+        }
+    }
+}
 
 export const signIn = ({userId, userName}) => {
     return {

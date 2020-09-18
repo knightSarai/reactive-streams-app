@@ -1,15 +1,20 @@
-import { SIGN_IN, SIGN_OUT} from '../actions/types.actions';
+import { SIGN_IN, SIGN_OUT, INIT_OAUTH} from '../actions/types.actions';
 
 const INITIAL_STATE = {
     isSignedIn: null,
     userName: null,
     userId: null,
-    auth: {}
+    oauth: {}
 }
 
 export default (state = INITIAL_STATE, action) => {
     // const {userName, userId} = action.payload;
     switch (action.type) {
+        case INIT_OAUTH:
+            return {
+                ...state,
+                oauth: action.payload.oauth
+            }
         case SIGN_IN:
             return {
                 ...state,
