@@ -40,7 +40,8 @@ class StreamCreate extends Component {
     }
 
     onSubmit = (formValues) => {
-        this.props.createStream(formValues)
+        this.props.createStream(formValues);
+        this.props.history.push('/')
     }
 
     renderForm = (classes, handleSubmit) => {
