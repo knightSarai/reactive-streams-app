@@ -32,7 +32,10 @@ class StreamCreate extends Component {
 
     renderInput = ({input, className, meta}) => {
         /*input has props, such as onChange */
+        let {value} = input;
+        input = {...input, value: value.trimStart()}
         const [isError, errMsg] = this.renderErr(meta);
+
         return <TextField error={isError} helperText={errMsg} {...input} label={input.name} className={className}/>
     }
 
@@ -57,7 +60,7 @@ class StreamCreate extends Component {
         return (
             <div className={classes.root}>
                 <h1>Please login to add new stream</h1>
-                <Button color="primary" variant="contained" onClick={this.onSignOutClick}><GoogleIcon />Sign in</Button>
+                <Button color="primary" variant="contained" onClick={() => this.props.oauth.signIn()}><GoogleIcon />Sign in</Button>
             </div> 
         )
     }
@@ -75,7 +78,7 @@ class StreamCreate extends Component {
 
 
 const mapStateToProps = state => {
-    return {isSignedIn: state.auth.isSignedIn}
+    return {isSignedIn: state.auth.isSignedIn, oauth: state.auth.oauth}
 }
 
 const formWrapped = reduxForm({

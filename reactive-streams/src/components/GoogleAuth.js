@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect } from 'react-redux';
-import {signIn, signOut} from '../actions';
+import {signIn, signOut, initOath} from '../actions';
 import {Button} from '@material-ui/core';
 import GoogleIcon from '../icons/Googlecon'
 
@@ -21,11 +21,11 @@ class GoogleAuth extends Component{
                 prompt: "select_account"
             })
             .then(() => {
-                this.auth = window.gapi.auth2.getAuthInstance();
-                this.onAuthChange(this.auth.isSignedIn.get());
-                this.auth.isSignedIn.listen(this.onAuthChange);
-            })
-
+                const {initOath} = this.props;
+                initOath({oauth: window.gapi.auth2.getAuthInstance()})
+                this.onAuthChange(this.props.oauth.isSignedIn.get());
+                this.props.oauth.isSignedIn.listen(this.onAuthChange);
+            });
         });
     }
     
@@ -41,8 +41,8 @@ class GoogleAuth extends Component{
     onAuthChange(isSignedIn) {
         if (isSignedIn) {
             this.props.signIn({
-                userId: this.auth.currentUser.get().getBasicProfile().getId(),
-                userName:  this.auth.currentUser.get().getBasicProfile().getName()
+                userId: this.props.oauth.currentUser.get().getBasicProfile().getId(),
+                userName:  this.props.oauth.currentUser.get().getBasicProfile().getName(),
             });
         } else {
             this.props.signOut();
@@ -50,11 +50,12 @@ class GoogleAuth extends Component{
     }
 
     onSignInClick(){
-        this.auth.signIn();
+        
+        this.props.oauth.signIn();
     };
 
     onSignOutClick() {
-        this.auth.signOut();
+        this.props.oauth.signOut();
     };
 
     renderAuthButton = () => {
@@ -78,11 +79,12 @@ class GoogleAuth extends Component{
 
 const mapStateToProps = (state) => {
     return {
+        oauth: state.auth.oauth,
         isSignedIn: state.auth.isSignedIn,
         userName: state.auth.userName
     }
 }
 
-export default connect(mapStateToProps, {signIn, signOut})(GoogleAuth);
+export default connect(mapStateToProps, {signIn, signOut, initOath})(GoogleAuth);
 
 //*https://accounts.google.com/o/oauth2/auth?redirect_uri=storagerelay%3A%2F%2Fhttp%2Flocalhost%3A3000%3Fid%3Dauth532126&response_type=permission id_token&scope=email profile openid&openid.realm=&client_id=60471022609-59kkholm574cik7bigaicu6uugpam3d2.apps.googleusercontent.com&ss_domain=http%3A%2F%2Flocalhost%3A3000&fetch_basic_profile=true&gsiwebsdk=2
