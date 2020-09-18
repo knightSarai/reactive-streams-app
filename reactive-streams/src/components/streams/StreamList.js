@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { connect } from 'react-redux';
 import {fetchStreams} from '../../actions/';
+import { Link as RouterLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -48,16 +49,18 @@ const StreamList = ({currentUserId, fetchStreams, streams}) =>{
             return (
             <div className={classes.streamLinkes}>
                 <Link
-                    component="button"
+                    component={RouterLink}
                     variant="body2"
                     className="link"
+                    to = {`/streams/edit/${stream.id}`}
                 >
                     Edit
                 </Link>
                 <Link
-                    component="button"
+                    component={RouterLink}
                     variant="body2"
                     className="link"
+                    to = {`/streams/delete/${stream.id}`}
                 >
                     Delete
                 </Link>
