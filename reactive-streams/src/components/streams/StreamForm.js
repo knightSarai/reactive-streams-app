@@ -58,7 +58,6 @@ class StreamForm extends Component {
         return (
             this.renderForm()
         )
-        
     }
 }
 
