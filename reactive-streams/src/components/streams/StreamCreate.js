@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {createStream} from '../../actions';
-import {Field, reduxForm} from 'redux-form';
-import {TextField, Button, Typography} from '@material-ui/core';
+import StreamForm from './StreamForm';
+import { Button} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import GoogleIcon from '../../icons/Googlecon';
-import {validate} from '../../helpers/validate';
 
 const styles = {
     root: {
@@ -15,44 +14,17 @@ const styles = {
     },
     button: {
       margin: "1rem"
-    },
-    textField: {
-        margin: "0.7rem"
     }
   };
 
 class StreamCreate extends Component {
-    renderErr = ({error, touched}) =>{
-        if (touched && error) {
-            return [true, error]
-        }else {
-            return [false, null]
-        }
-    }
-
-    renderInput = ({input, className, meta}) => {
-        /*input has props, such as onChange */
-        let {value} = input;
-        input = {...input, value: value.trimStart()}
-        const [isError, errMsg] = this.renderErr(meta);
-
-        return <TextField error={isError} helperText={errMsg} {...input} label={input.name} className={className}/>
-    }
-
     onSubmit = (formValues) => {
         this.props.createStream(formValues);
     }
 
-    renderForm = (classes, handleSubmit) => {
+    renderForm = () => {
         return (
-            <form  onSubmit={handleSubmit(this.onSubmit)}  className={classes.root}>
-                <Typography variant="h5">Create new stream</Typography>
-                <Field name="title" component={this.renderInput} className={classes.textField}/>
-                <br/>
-                <Field name="description" component={this.renderInput}/>
-                <br/>
-                <Button type="submit" variant="contained" color="primary" className={classes.button} >Submit</Button>
-            </form>
+            <StreamForm formHeader="Create a new stream" onSubmit={this.onSubmit}/>
         )
     }
 
@@ -66,10 +38,10 @@ class StreamCreate extends Component {
     }
 
     render() {
-        const {classes, handleSubmit, isSignedIn} = this.props;
+        const {classes, isSignedIn} = this.props;
         return (
             isSignedIn ? 
-            this.renderForm(classes, handleSubmit) : 
+            this.renderForm() : 
             this.renderSignIn(classes)
         )
         
@@ -81,12 +53,7 @@ const mapStateToProps = state => {
     return {isSignedIn: state.auth.isSignedIn, oauth: state.auth.oauth}
 }
 
-const formWrapped = reduxForm({
-    form: 'streamCreate',
-    validate
-    }
-)(StreamCreate);
 
-const componentStyled = withStyles(styles)(formWrapped);
+const componentStyled = withStyles(styles)(StreamCreate);
 
 export default connect(mapStateToProps, {createStream})(componentStyled) ;
