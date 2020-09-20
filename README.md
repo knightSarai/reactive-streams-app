@@ -12,7 +12,7 @@ Also, Material-UI used as react component library.</p>
 npm start
 ```
 ## 2. JSON-Server as an API.
-> db.json inside api directory 
+> in db.json inside api directory 
 ### run inside the directory
 ```
 npm start
