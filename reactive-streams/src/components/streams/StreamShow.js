@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react'
+import React, {useEffect} from 'react';
+import flv from 'flv.js';
 import {connect} from 'react-redux';
 import {fetchStream} from '../../actions'
 
@@ -15,6 +16,7 @@ function StreamShow(props) {
     }
     return (
         <div>
+            <video />
             Stream {stream.id}
         </div>
     )
