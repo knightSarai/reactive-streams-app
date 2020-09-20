@@ -37,7 +37,7 @@ function StreamEdit(props) {
     const renderSignIn = () => {
         return (
             <div className={classes.root}>
-                <h1>Please login to add new stream</h1>
+                <h1>Please login to edite the stream</h1>
                 <Button color="primary" variant="contained" onClick={() => oauth.signIn()}><GoogleIcon />Sign in</Button>
             </div> 
         )
@@ -47,7 +47,7 @@ function StreamEdit(props) {
         return (
             <StreamForm 
                 initialValues={_.pick(stream, 'title', 'description')}
-                formHeader="Create a new stream" 
+                formHeader="Edit stream" 
                 onSubmit={onSubmit}
             />
         )
