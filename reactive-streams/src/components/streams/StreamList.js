@@ -35,7 +35,18 @@ const useStyles = makeStyles((theme) => ({
             margin: "0.5rem 1px 0px 1px",
             color: `${theme.palette.linkColor.main}`
         }
+    },
+    streamHeader: {
+        color: `${theme.palette.neutral.main}`,
+        fontWeight: "600",
+        fontSize: "1rem",
+        opacity: "0.9",
+        "&:hover": {
+            textDecoration: "none",
+            opacity: "0.8"
+        }
     }
+
   }));
 
 const StreamList = ({currentUserId, fetchStreams, streams}) =>{
@@ -77,7 +88,16 @@ const StreamList = ({currentUserId, fetchStreams, streams}) =>{
                         <OndemandVideoIcon  fontSize="large"/>
                     </ListItemAvatar>
                     <ListItemText
-                        primary={stream.title}
+                        primary={
+                            <Link
+                                component={RouterLink}
+                                variant="body2"
+                                className={classes.streamHeader}
+                                to = {`/streams/${stream.id}`}
+                            >
+                            {stream.title}
+                        </Link>
+                        }
                         secondary= {
                             <React.Fragment>
                                 {stream.description}

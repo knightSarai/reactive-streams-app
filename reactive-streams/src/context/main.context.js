@@ -22,7 +22,7 @@ export const MainProvider = (props) => {
             main: "#f70776"
           },
           neutral:{
-            main: "#1e56a0"
+            main: mood.isDarkMood? "#497aba" : "#1e56a0"
           },
           linkColor:  {
             main: mood.isDarkMood? '#4791db' : "#f73859"
