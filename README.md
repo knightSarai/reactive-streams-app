@@ -2,6 +2,9 @@
 <p>Streaming application (Twitch Like), built with ReactJS, JSON-Server, node-media-server, OBS as streaming client.
 Also, Material-UI used as react component library.</p>
 
+## how it works: 
+<p> With every stream created by a user with react client, a key will be stored in the API server, and it will be pushed to the RTMP server when a user starts streaming, and then react will be able to show  the stream. </p>
+
 ## servers: 
 ***
 ### run backend servers first.
